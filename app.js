@@ -1,28 +1,20 @@
 const express = require('express');
 // Importe Sequelize
 const {DataTypes, Sequelize} = require('sequelize');
+const dotenv = require('dotenv');
 
 const app = express();
-
 const port = process.env.PORT || 3000;
-let sequelize = null;
 
-if(process.env.NODE_ENV && process.env.NODE_ENV==="production")
+// Je suis en local
+if(!process.env.NODE_ENV)
 {
-    // LE CAS QUE MËME ON EST SUR HEROKU
-    // Initialiser la connexion à un serveur de BDD
-    sequelize = new Sequelize(
-    // ICI TOUT VA CHANGERRRR
-    process.env.DATABASE_URL
-)
+    // CHaque variable dans le .env en local devient
+    // une variable process.env.LENOMDEMAVAR
+    
+    dotenv.config(); 
 }
-else {
-    // LE CAS QUE MËME ON EST EN LOCAL
-    // Initialiser la connexion à un serveur de BDD
-    sequelize = new Sequelize(
-            'mysql://ldlc_user:root1234@localhost/ldlc'
-        )
-}
+const sequelize = new Sequelize(process.env.DATABASE_URL);
 
 
 // Créer le modèle des claviers
