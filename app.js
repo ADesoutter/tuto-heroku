@@ -11,7 +11,6 @@ if(!process.env.NODE_ENV)
 {
     // CHaque variable dans le .env en local devient
     // une variable process.env.LENOMDEMAVAR
-    
     dotenv.config(); 
 }
 const sequelize = new Sequelize(process.env.DATABASE_URL);
